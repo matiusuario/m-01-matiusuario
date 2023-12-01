@@ -1,0 +1,20 @@
+{
+  "name": "m-01-matiusuario",
+  "version": "0.1.0",
+  "description": "proyecto integrador final lenguajes de programacion II - tramo III, comision M-01",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "matiusuario",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.0.2",
+    "morgan": "^1.10.0"
+  },
+  "type": "module"
+}
