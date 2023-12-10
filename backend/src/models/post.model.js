@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const PostSchema = new Schema({
 	title: {
@@ -11,19 +11,22 @@ const PostSchema = new Schema({
 		required: true,
 		minlength: 2
 	},
-	autor: {
-		type: String,
+	author: {
+		type: Schema.Types.ObjectId,
+		ref: "User",
 		required: true,
 	},
-	comments: {
-		type: String,
-	},
+	comments: [{
+		type: Schema.Types.ObjectId,
+		ref: "Comment"
+	}],
 	imageUrl: {
 		type: String,
-	},
-	createdAt: {
-		type: DateTime,
 	}
+}, {
+	timestamps: true
 });
 
-export const Post = model("Post", PostSchema);
+const Post = model("Post", PostSchema);
+
+export { Post };
