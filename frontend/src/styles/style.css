@@ -1,3 +1,19 @@
+body {
+    padding-top: 85px;
+    background-color: white;
+	padding-bottom: 5rem;
+}
 .jus {
 	justify-content: space-between;
+}
+.requerido {
+	color: #c01c28;
+}
+.pub {
+    background-color: rgb(235, 245, 255);
+    box-shadow: 1px 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.imgurl {
+	margin-left: auto;
+	margin-right: auto;
 }

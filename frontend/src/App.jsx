@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
-import Home from "./components/Home";
-import Posts from "./components/Posts";
-import NotFound from "./components/NotFound";
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import Home from "./pages/Home";
+import Posts from "./pages/Posts";
+import NotFound from "./pages/NotFound";
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import './App.css';
+import "./styles/style.css";
 
 function App() {
 
