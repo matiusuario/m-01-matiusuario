@@ -1,4 +1,8 @@
 import { User } from "../models/user.model.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
+const SECRET = process.env.SECRET;
 
 const userCtrl = {};
 
@@ -12,12 +16,13 @@ userCtrl.getUsers = async (req, res) => {
 	}
 }
 
-userCtrl.postUser = async (req, res) => {
+userCtrl.signUpUser = async (req, res) => {
 	try {
 		const { username, password, email, avatarUrl } = req.body;
+		const hashedPassword = await bcrypt.hash(password, 10);
 		const newUser = new User({
 			"username": username,
-			"password": password,
+			"password": hashedPassword,
 			"email": email,
 			"avatarUrl": avatarUrl
 		});
@@ -25,7 +30,7 @@ userCtrl.postUser = async (req, res) => {
 		return res.json(saved);
 	} catch (err) {
 		console.error("Error al guardar user en la BD", err);
-		res.status(500).send("Error al guardar el usuario en la base de datos");
+		res.status(500).send("Error al registrar el usuario");
 	}
 }
 
@@ -40,6 +45,25 @@ userCtrl.deleteUser = async (req, res) => {
 	} catch (err) {
 		console.error("Error al eliminar user de la BD", err);
 		res.status(500).send("Error al eliminar el usuario de la base de datos");
+	}
+}
+
+userCtrl.loginUser = async (req, res) => {
+	try {
+		const { username, password } = req.body;
+		const user = await User.findOne({ username: username });
+		if (!user) {
+			return res.json({"message": "usuario o contraseña incorrectos"});
+		}
+		const isCorrect = await bcrypt.compare(password, user.password);
+		if (!isCorrect) {
+			return res.json({"message": "usuario o contraseña incorrectos"});
+		}
+		const token = jwt.sign({_id: user._id}, SECRET)
+		return res.json({token});
+	} catch (err) {
+		console.error("Error al iniciar sesión", err);
+		res.status(500).send("Error al iniciar sesión");
 	}
 }
 

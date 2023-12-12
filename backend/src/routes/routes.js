@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { postCtrl } from "../controllers/post.controller.js";
 import { userCtrl } from "../controllers/user.controller.js";
-import { validations, handleValidation } from "../validations.js";
+import { validations } from "../validations.js";
+import { handleValidation } from "../middlewares/validateContent.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const router = Router();
 
@@ -11,17 +13,19 @@ router.get("/", (req, res) => {
 // Rutas de publicaciones
 router.get("/posts", postCtrl.getPosts);
 
-router.post("/posts", validations.validatePost, handleValidation, postCtrl.postPost);
+router.post("/posts", validations.validatePost, handleValidation, authenticate, postCtrl.postPost);
 
-router.put("/posts/:_id/comments", validations.validateComment, handleValidation, postCtrl.addComment);
+router.put("/posts/:_id/comments", validations.validateComment, handleValidation, authenticate, postCtrl.addComment);
 
-router.delete("/posts/:_id", postCtrl.deletePost);
+router.delete("/posts/:_id", authenticate, postCtrl.deletePost);
 
 //Rutas de usuarios
 router.get("/users", userCtrl.getUsers);
 
-router.post("/users", validations.validateUser, handleValidation, userCtrl.postUser);
+router.post("/login", userCtrl.loginUser);
 
-router.delete("/users/:_id", userCtrl.deleteUser);
+router.post("/signup", validations.validateUser, handleValidation, userCtrl.signUpUser);
+
+router.delete("/users/:_id", authenticate, userCtrl.deleteUser);
 
 export { router };
