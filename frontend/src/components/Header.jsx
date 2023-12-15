@@ -18,6 +18,7 @@ const Header = () => {
 				<div className="navbar-collapse navbar-nav jus">
 					<Link to="/publicaciones" className="nav-link">Publicaciones</Link>
 					{!auth && <Link to="/login" className="nav-link">Ingresar</Link>}
+					{auth && <Link to="/publicaciones/nueva" className="nav-link">Crear publicación</Link>}
 				</div>
 			</div>
 		</nav>

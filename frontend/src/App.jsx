@@ -6,6 +6,7 @@ import Posts from "./pages/Posts";
 import NotFound from "./pages/NotFound";
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import CreatePost from './pages/CreatePost';
 import './App.css';
 import "./styles/style.css";
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/publicaciones' element={<Posts />}/>
+          <Route path='/publicaciones/nueva' element={<CreatePost />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/signup' element={<SignUp />}/>
           <Route path='*' element={<NotFound />}/>
