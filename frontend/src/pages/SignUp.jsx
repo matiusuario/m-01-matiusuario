@@ -24,13 +24,13 @@ const SignUp = () => {
 		});
 		if (req.status >= 400 ) {
 			alert("Error al registrar usuario");
-			setTimeout(() => navigate("/signup"), 4000);
+			navigate("/signup");
 			return;
 		}
-		alert("Registrado con éxito");
+		alert("Registrado con éxito. Redirigiendo...");
 		setTimeout(() => {
 			navigate("/login");
-		}, 4000);
+		}, 1000);
 	}
 
 	return (

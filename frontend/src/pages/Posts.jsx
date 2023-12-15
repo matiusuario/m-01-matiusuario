@@ -12,7 +12,6 @@ const Posts = () => {
 			const fetchedPosts = await response.json();
 			if (fetchedPosts.length) {
 				setPosts(fetchedPosts);
-				console.log("los posts: ", posts);
 			}
 		}
 		fetchPosts();
@@ -22,7 +21,6 @@ const Posts = () => {
 		<div>
 			<p>Acá están las mejores publicaciones sobre viajes...</p>
 			<div>
-				{console.log("los posts en return: ", posts)}
 				{posts.map((post) => <PostItem post={post} key={post._id} /> )}
 			</div>
 		</div>
