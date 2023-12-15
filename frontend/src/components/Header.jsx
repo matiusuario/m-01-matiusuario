@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from "../providers/authProvider.jsx";
 import logo from "../assets/logo-aforo.webp";
 import "../styles/style.css";
 
 const Header = () => {
+
+	const { auth } = useContext(AuthContext);
 
 	return (
 	  <header>
@@ -13,7 +17,7 @@ const Header = () => {
 				</Link>
 				<div className="navbar-collapse navbar-nav jus">
 					<Link to="/publicaciones" className="nav-link">Publicaciones</Link>
-					<Link to="/login" className="nav-link">Ingresar</Link>
+					{!auth && <Link to="/login" className="nav-link">Ingresar</Link>}
 				</div>
 			</div>
 		</nav>

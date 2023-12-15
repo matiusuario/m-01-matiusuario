@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './providers/authProvider';
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <>
+    <AuthProvider>
       <BrowserRouter>
       <Header />
         <Routes>
@@ -22,8 +24,9 @@ function App() {
           <Route path='*' element={<NotFound />}/>
         </Routes>
       </BrowserRouter>
+    </AuthProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
