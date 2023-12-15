@@ -60,7 +60,7 @@ userCtrl.loginUser = async (req, res) => {
 			return res.status(404).json({"message": "usuario o contraseña incorrectos"});
 		}
 		const token = jwt.sign({_id: user._id}, SECRET)
-		return res.status(201).json({token});
+		return res.status(201).json({token, "user": user._id});
 	} catch (err) {
 		console.error("Error al iniciar sesión", err);
 		res.status(500).send("Error al iniciar sesión");
