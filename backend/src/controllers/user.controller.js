@@ -27,7 +27,7 @@ userCtrl.signUpUser = async (req, res) => {
 			"avatarUrl": avatarUrl
 		});
 		const saved = await newUser.save();
-		return res.json(saved);
+		return res.status(201).json(saved);
 	} catch (err) {
 		console.error("Error al guardar user en la BD", err);
 		res.status(500).send("Error al registrar el usuario");
@@ -39,7 +39,7 @@ userCtrl.deleteUser = async (req, res) => {
 		const { _id } = req.params;
 		const deleted = await User.findByIdAndDelete(_id);
 		if (!deleted) {
-			return res.json({"message": "No se encontró el usuario"});
+			return res.status(404).json({"message": "No se encontró el usuario"});
 		}
 		return res.json(deleted);
 	} catch (err) {
@@ -53,14 +53,14 @@ userCtrl.loginUser = async (req, res) => {
 		const { username, password } = req.body;
 		const user = await User.findOne({ username: username });
 		if (!user) {
-			return res.json({"message": "usuario o contraseña incorrectos"});
+			return res.status(404).json({"message": "usuario o contraseña incorrectos"});
 		}
 		const isCorrect = await bcrypt.compare(password, user.password);
 		if (!isCorrect) {
-			return res.json({"message": "usuario o contraseña incorrectos"});
+			return res.status(404).json({"message": "usuario o contraseña incorrectos"});
 		}
 		const token = jwt.sign({_id: user._id}, SECRET)
-		return res.json({token});
+		return res.status(201).json({token});
 	} catch (err) {
 		console.error("Error al iniciar sesión", err);
 		res.status(500).send("Error al iniciar sesión");
