@@ -10,7 +10,6 @@ const AddComment = () => {
 	const { _id } = useParams();
 
 	const handleAddComment = async ({ comm }) => {
-		console.log("en handleaddcomment en addcomment");
 		const req = await fetch(`${domain}/posts/${_id}/comments`, {
 			method: "PUT",
 			body: JSON.stringify(comm),
@@ -27,7 +26,6 @@ const AddComment = () => {
 	}
 
 	const handleSubmit = async (e) => {
-		console.log("en handle submit en addcoment");
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		const comm = {};

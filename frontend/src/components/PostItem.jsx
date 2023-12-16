@@ -1,13 +1,30 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/authProvider.jsx";
 import { Comment } from "./Comment.jsx";
-import { AddComment } from "./AddComment.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { domain } from "../configs/utils.js";
 
 const PostItem = ({ post }) => {
 
 	const { auth } = useContext(AuthContext);
 	const navigate = useNavigate();
+
+	const handleDeletePost = async () => {
+		const req = await fetch(`${domain}/posts/${post._id} `, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: auth.token
+			}
+		});
+		if (req.status >= 400 ) {
+			alert("Error al eliminar publicación");
+			navigate("/publicaciones");
+			return;
+		}
+		alert("Publicación eliminada con éxito.");
+		navigate("/publicaciones");
+	}
 
 	return (
 		<div className="column my-3 pt-3">
@@ -25,8 +42,9 @@ const PostItem = ({ post }) => {
 					onClick={() => navigate(`/publicaciones/${post._id}/comentar`)}
 					className="btn btn-sm btn-outline-secondary btn-comment">Comentar</button>
 				}
-				{/*<button type="button" value={props.post._id} className="btn btn-sm btn-outline-secondary btn-editar">Editar publicación</button>
-				<button value={props.post._id} className="btn btn-sm btn-outline-secondary btn-borrar">Borrar publicación</button>*/}
+				{auth && auth.user === post.author._id && <button type="button" className="btn btn-sm btn-outline-secondary btn-borrar"
+					onClick={handleDeletePost}>Borrar publicación</button>
+				}
 			</div>
 		</div>
 	)
