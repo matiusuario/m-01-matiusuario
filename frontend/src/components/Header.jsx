@@ -6,7 +6,7 @@ import "../styles/style.css";
 
 const Header = () => {
 
-	const { auth } = useContext(AuthContext);
+	const { auth, logout } = useContext(AuthContext);
 
 	return (
 	  <header>
@@ -16,9 +16,14 @@ const Header = () => {
 					<img src={logo} alt="logo" className="logo"/>
 				</Link>
 				<div className="navbar-collapse navbar-nav jus">
-					<Link to="/publicaciones" className="nav-link">Publicaciones</Link>
-					{!auth && <Link to="/login" className="nav-link">Ingresar</Link>}
-					{auth && <Link to="/publicaciones/nueva" className="nav-link">Crear publicación</Link>}
+					<div>
+						<Link to="/publicaciones" className="nav-link">Publicaciones</Link>
+					</div>
+					<div className="end">
+						{auth && <Link to="/publicaciones/nueva" className="nav-link">Crear publicación</Link>}
+						{!auth && <Link to="/login" className="nav-link">Ingresar</Link>}
+						{auth && <button type="button" className="nav-link" onClick={logout}>Cerrar sesión</button>}
+					</div>
 				</div>
 			</div>
 		</nav>
