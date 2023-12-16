@@ -20,7 +20,7 @@ router.put("/posts/:_id/comments", validations.validateComment, handleValidation
 router.delete("/posts/:_id", authenticate, postCtrl.deletePost);
 
 //Rutas de usuarios
-router.get("/users", userCtrl.getUsers);
+router.get("/users", authenticate, userCtrl.getUsers);
 
 router.post("/login", userCtrl.loginUser);
 
