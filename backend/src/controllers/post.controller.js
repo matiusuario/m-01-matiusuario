@@ -5,7 +5,13 @@ const postCtrl = {};
 
 postCtrl.getPosts = async (req, res) => {
 	try {
-		const posts = await Post.find();
+		const posts = await Post.find()
+			.populate("author", ["username", "avatarUrl"])
+			.populate({
+				path: "comments",
+				select: "description",
+				populate: { path: "author", select: "username avatarUrl" }
+			});
 		return res.json(posts);
 	} catch (err) {
 		console.error("Error al obtener posts de la BD", err);
@@ -56,6 +62,7 @@ postCtrl.addComment = async (req, res) => {
 			"description": description,
 			"author": author,
 		});
+		await newComm.save();
 		post.comments.push(newComm);
 		const updated = await post.save();
 		return res.json({"message": "Comentario guardado", "post": updated});
