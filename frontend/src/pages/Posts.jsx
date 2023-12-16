@@ -21,7 +21,7 @@ const Posts = () => {
 		<div>
 			<p>Acá están las mejores publicaciones sobre viajes...</p>
 			<div>
-				{posts.map((post) => <PostItem post={post} key={post._id} /> )}
+				{posts.map((post) => <PostItem post={post} key={post._id}/>)}
 			</div>
 		</div>
 	)
